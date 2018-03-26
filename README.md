@@ -1,4 +1,7 @@
-This project is realised on IT university of Zielona Gora
+This project is realised on IT university of Zielona Gora.
+Main point of this project is learn to work in team using 
+GitHub repository and Asana platform.
+
 Project Manager:
 - Mateusz Wujciów
 

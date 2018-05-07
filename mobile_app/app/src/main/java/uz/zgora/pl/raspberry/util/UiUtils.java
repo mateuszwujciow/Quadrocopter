@@ -5,11 +5,11 @@ import android.widget.TextView;
 
 public class UiUtils {
 
-    public static double getDouble(@NonNull final TextView textView) {
+    public static float getFloat(@NonNull final TextView textView) {
         try {
-            return Double.parseDouble(getText(textView));
+            return Float.parseFloat(getText(textView));
         } catch (final NumberFormatException exception) {
-            return 0d;
+            return 0;
         }
     }
 

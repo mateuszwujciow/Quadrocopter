@@ -13,14 +13,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uz.zgora.pl.raspberry.R;
 import uz.zgora.pl.raspberry.model.Configuration;
+import uz.zgora.pl.raspberry.model.ConfigurationGroup;
+
+import static uz.zgora.pl.raspberry.util.DateFormatter.fullDate;
+import static uz.zgora.pl.raspberry.util.Objects.isNotNull;
 
 
 class ConfigurationListAdapter extends RecyclerView.Adapter<ConfigurationListAdapter.ViewHolder> {
     private final List<Configuration> configurations;
     private final OnClick onClick;
 
-    ConfigurationListAdapter(@NonNull List<Configuration> configurations, @Nullable OnClick onItemClicked) {
-        this.configurations = configurations;
+    ConfigurationListAdapter(@NonNull final ConfigurationGroup configurationGroup, @Nullable final OnClick onItemClicked) {
+        this.configurations = configurationGroup.getConfigurations();
         this.onClick = onItemClicked;
     }
 
@@ -43,6 +47,8 @@ class ConfigurationListAdapter extends RecyclerView.Adapter<ConfigurationListAda
     final class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.txtConfigurationName)
         TextView txtConfigurationName;
+        @BindView(R.id.txtLastModificationDate)
+        TextView txtLastModificationDate;
 
         ViewHolder(final ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext())
@@ -50,14 +56,15 @@ class ConfigurationListAdapter extends RecyclerView.Adapter<ConfigurationListAda
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(final Configuration configuration) {
-            txtConfigurationName.setText(configuration.getName());
-            if (onClick != null) itemView.setOnClickListener(v -> onClick.invoke(configuration));
+        void bind(final Configuration configurations) {
+            txtConfigurationName.setText(configurations.getName());
+            txtLastModificationDate.setText(fullDate(configurations.getLastModificationDate()));
+            if (isNotNull(onClick)) itemView.setOnClickListener(v -> onClick.invoke(configurations));
         }
     }
 
     interface OnClick {
 
-        void invoke(final Configuration configuration);
+        void invoke(final Configuration configurations);
     }
 }

@@ -1,31 +1,20 @@
 package uz.zgora.pl.raspberry.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Date;
 
 public class Configuration implements Serializable {
-    private final int id;
+    private final long id;
     private final String name;
-    private final List<SingleConfiguration> configurations;
+    private final Date lastModificationDate;
 
-    public static Configuration EMPTY() {
-        final List<SingleConfiguration> configurations = Arrays.asList(
-                SingleConfiguration.EMPTY(SingleConfiguration.Type.PITCH),
-                SingleConfiguration.EMPTY(SingleConfiguration.Type.ROLL),
-                SingleConfiguration.EMPTY(SingleConfiguration.Type.THRUST),
-                SingleConfiguration.EMPTY(SingleConfiguration.Type.YAW)
-        );
-        return new Configuration(0, "dupa", configurations);
-    }
-
-    public Configuration(final int id, final String name, final List<SingleConfiguration> configurations) {
+    public Configuration(final long id, final String name, final Date lastModificationDate) {
         this.id = id;
         this.name = name;
-        this.configurations = configurations;
+        this.lastModificationDate = lastModificationDate;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -33,7 +22,7 @@ public class Configuration implements Serializable {
         return name;
     }
 
-    public List<SingleConfiguration> getConfigurations() {
-        return configurations;
+    public Date getLastModificationDate() {
+        return lastModificationDate == null ? new Date() : lastModificationDate;
     }
 }

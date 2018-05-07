@@ -14,7 +14,6 @@
         tools:ignore="AllowBackup, GoogleAppIndexingWarning">
 
         <activity android:name="uz.zgora.pl.raspberry.ui.connection.ConnectionActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +21,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="uz.zgora.pl.raspberry.ui.configuration.ConfigurationActivity" />
-
         <activity android:name=".ui.dashboard.DashboardActivity" />
-
         <activity android:name=".ui.configuration.list.ConfigurationListActivity" />
+        <activity android:name=".ui.configuration.manage.ConfigurationActivity" />
+        <activity android:name=".ui.video.VideoStreamActivity" />
 
     </application>
 

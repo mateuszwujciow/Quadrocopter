@@ -10,4 +10,8 @@ public class AndroidUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         currentActivity.startActivity(intent);
     }
+
+    public static void startActivity(final Activity currentActivity, final Class activityToStart) {
+        currentActivity.startActivity(new Intent(currentActivity, activityToStart));
+    }
 }

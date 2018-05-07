@@ -1,19 +1,23 @@
-package uz.zgora.pl.raspberry.ui.configuration;
+package uz.zgora.pl.raspberry.ui.configuration.manage;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import uz.zgora.pl.raspberry.R;
 import uz.zgora.pl.raspberry.model.SingleConfiguration;
 import uz.zgora.pl.raspberry.ui.base.TabPage;
+import uz.zgora.pl.raspberry.util.UiUtils;
 
+import static uz.zgora.pl.raspberry.util.Objects.isNotNull;
+import static uz.zgora.pl.raspberry.util.Objects.isNull;
 import static uz.zgora.pl.raspberry.util.UiUtils.setText;
 
-public class ConfigurationPage extends TabPage {
+public class ConfigurationPage extends TabPage<SingleConfiguration> {
     public static final String KEY_SINGLE_CONFIGURATION = "key-single-configuration";
 
     private static final String UNDEFINED_TITLE = "Undefined";
@@ -29,10 +33,29 @@ public class ConfigurationPage extends TabPage {
 
     private SingleConfiguration configuration;
 
+    public static TabPage<SingleConfiguration> newInstance(final SingleConfiguration configuration) {
+        final Bundle args = new Bundle();
+        args.putSerializable(KEY_SINGLE_CONFIGURATION, configuration);
+        final ConfigurationPage fragment = new ConfigurationPage();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public String getTitle() {
         configuration = getConfiguration();
-        return configuration == null ? UNDEFINED_TITLE : configuration.getType().name();
+        return isNull(configuration) ? UNDEFINED_TITLE : configuration.getType().name();
+    }
+
+    @Override
+    public SingleConfiguration build() {
+        return new SingleConfiguration.Builder()
+                .kd(getFloat(txtKd))
+                .ki(getFloat(txtKi))
+                .kp(getFloat(txtKp))
+                .tf(getFloat(txtTf))
+                .type(getConfiguration().getType())
+                .build();
     }
 
     @Override
@@ -48,13 +71,13 @@ public class ConfigurationPage extends TabPage {
 
     private SingleConfiguration getConfiguration() {
         final Bundle args = getArguments();
-        if (args == null) return SingleConfiguration.EMPTY(SingleConfiguration.Type.UNKNOWN);
+        if (isNull(args)) return SingleConfiguration.EMPTY(SingleConfiguration.Type.UNKNOWN);
         final SingleConfiguration configuration = (SingleConfiguration) args.getSerializable(KEY_SINGLE_CONFIGURATION);
-        return configuration == null ? SingleConfiguration.EMPTY(SingleConfiguration.Type.UNKNOWN) : configuration;
+        return isNull(configuration) ? SingleConfiguration.EMPTY(SingleConfiguration.Type.UNKNOWN) : configuration;
     }
 
     private void setupView() {
-        if (configuration != null) {
+        if (isNotNull(configuration)) {
             setText(txtKp, configuration.getKp());
             setText(txtKi, configuration.getKi());
             setText(txtKd, configuration.getKd());
@@ -62,11 +85,7 @@ public class ConfigurationPage extends TabPage {
         }
     }
 
-    public static TabPage newInstance(final SingleConfiguration configuration) {
-        final Bundle args = new Bundle();
-        args.putSerializable(KEY_SINGLE_CONFIGURATION, configuration);
-        final ConfigurationPage fragment = new ConfigurationPage();
-        fragment.setArguments(args);
-        return fragment;
+    private float getFloat(final TextView textView) {
+        return isNull(textView) ? 0 : UiUtils.getFloat(textView);
     }
 }

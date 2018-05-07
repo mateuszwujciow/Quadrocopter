@@ -16,7 +16,10 @@ import java.util.List;
 import butterknife.BindView;
 import uz.zgora.pl.raspberry.R;
 
-public abstract class TabActivity extends BaseActivity {
+import static uz.zgora.pl.raspberry.util.Objects.isNotNull;
+import static uz.zgora.pl.raspberry.util.Objects.isNull;
+
+public abstract class TabActivity<T> extends BaseActivity {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -27,7 +30,7 @@ public abstract class TabActivity extends BaseActivity {
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
 
-    protected abstract List<TabPage> getPages();
+    protected abstract List<TabPage<T>> getPages();
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public abstract class TabActivity extends BaseActivity {
     private void setupActionBar() {
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (isNotNull(actionBar)) actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupViewPager() {
@@ -53,15 +56,15 @@ public abstract class TabActivity extends BaseActivity {
     }
 
     private ViewPagerAdapter createAdapter() {
-        return new ViewPagerAdapter(getSupportFragmentManager(), getPages());
+        return new ViewPagerAdapter<>(getSupportFragmentManager(), getPages());
     }
 
-    private static final class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<TabPage> pages;
+    private static final class ViewPagerAdapter<K> extends FragmentPagerAdapter {
+        private final List<TabPage<K>> pages;
 
-        ViewPagerAdapter(final FragmentManager fragmentManager, final List<TabPage> pages) {
+        ViewPagerAdapter(final FragmentManager fragmentManager, final List<TabPage<K>> pages) {
             super(fragmentManager);
-            this.pages = pages == null ? Collections.emptyList() : pages;
+            this.pages = isNull(pages) ? Collections.emptyList() : pages;
         }
 
         @Override

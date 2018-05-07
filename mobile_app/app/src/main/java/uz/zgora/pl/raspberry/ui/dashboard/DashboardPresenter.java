@@ -1,11 +1,8 @@
 package uz.zgora.pl.raspberry.ui.dashboard;
 
-import android.util.Log;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import uz.zgora.pl.raspberry.api.ApiResponseHandler;
 import uz.zgora.pl.raspberry.api.ConfigurationProvider;
-import uz.zgora.pl.raspberry.model.Configuration;
+import uz.zgora.pl.raspberry.model.ConfigurationGroup;
 
 class DashboardPresenter {
     private final DashboardView view;
@@ -15,37 +12,16 @@ class DashboardPresenter {
     }
 
     void showCurrentConfiguration() {
-        new ConfigurationProvider()
-                .getConfigurations()
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(final Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(final String configurations) {
-                        Log.e("dupa", configurations + "::");
-                    }
-
-                    @Override
-                    public void onError(final Throwable throwable) {
-                        Log.e("dupa", "onError");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     void showConfigurationList() {
-        view.navigateToConfigurationListView();
+        new ApiResponseHandler<>(new ConfigurationProvider().getAll(),
+                it -> view.navigateToConfigurationListView(new ConfigurationGroup(it)));
     }
 
     void showAddConfigurationView() {
-        view.navigateToConfigurationView(Configuration.EMPTY());
+        view.navigateToConfigurationView(null);
+
     }
 
     void disconnect() {
@@ -53,6 +29,6 @@ class DashboardPresenter {
     }
 
     public void showVideoStream() {
-
+        view.navigateToVideoStreamView();
     }
 }

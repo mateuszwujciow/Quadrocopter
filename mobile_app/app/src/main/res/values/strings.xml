@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Raspberry</string>
+    <string name="l_ip_address">Ip address</string>
+    <string name="l_password">Password</string>
+    <string name="l_connect">Connect</string>
+    <string name="l_kp">Kp</string>
+    <string name="l_ki">Ki</string>
+    <string name="l_kd">Kd</string>
+    <string name="l_tf">Tf</string>
+    <string name="l_update">Update</string>
+</resources>

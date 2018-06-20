@@ -8,23 +8,38 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme"
+        android:theme="@style/AppTheme"
         tools:ignore="AllowBackup, GoogleAppIndexingWarning">
 
-        <activity android:name="uz.zgora.pl.raspberry.ui.connection.ConnectionActivity">
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.dashboard.DashboardActivity" />
-        <activity android:name=".ui.configuration.list.ConfigurationListActivity" />
-        <activity android:name=".ui.configuration.manage.ConfigurationActivity" />
-        <activity android:name=".ui.video.VideoStreamActivity" />
+        <activity
+            android:name=".ui.configuration.list.ConfigurationListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.configuration.manage.edit.EditConfigurationActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.video.VideoStreamActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.configuration.detail.ConfigurationDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.configuration.manage.add.AddConfigurationActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

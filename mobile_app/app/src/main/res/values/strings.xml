@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Raspberry</string>
+    <string name="app_name">Quadrocopter</string>
     <string name="l_ip_address">Ip address</string>
     <string name="l_password">Password</string>
     <string name="l_connect">Connect</string>
@@ -8,4 +8,10 @@
     <string name="l_kd">Kd</string>
     <string name="l_tf">Tf</string>
     <string name="l_update">Update</string>
+    <string name="l_configuration_name">Configuration name</string>
+    <string name="l_add">Add</string>
+    <string name="l_save">Save</string>
+    <string name="l_remove">Delete</string>
+    <string name="l_edit">Edit</string>
+    <string name="l_upload">Upload</string>
 </resources>

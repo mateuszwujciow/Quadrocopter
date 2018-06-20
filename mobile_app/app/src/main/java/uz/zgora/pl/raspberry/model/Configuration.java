@@ -1,20 +1,20 @@
 package uz.zgora.pl.raspberry.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Configuration implements Serializable {
-    private final long id;
-    private final String name;
-    private final Date lastModificationDate;
+    private int id;
+    private String name;
+    @SerializedName("last_update")
+    private String lastModificationDate;
 
-    public Configuration(final long id, final String name, final Date lastModificationDate) {
-        this.id = id;
-        this.name = name;
-        this.lastModificationDate = lastModificationDate;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -23,6 +23,13 @@ public class Configuration implements Serializable {
     }
 
     public Date getLastModificationDate() {
-        return lastModificationDate == null ? new Date() : lastModificationDate;
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS", Locale.getDefault());
+        Date date = new Date();
+        try {
+            date = formatter.parse(lastModificationDate);
+        } catch (final ParseException exception) {
+            exception.printStackTrace();
+        }
+        return date;
     }
 }

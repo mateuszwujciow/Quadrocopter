@@ -24,9 +24,6 @@ public abstract class TabActivity<T> extends BaseActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
 
@@ -44,13 +41,17 @@ public abstract class TabActivity<T> extends BaseActivity {
         return R.layout.activity_tab;
     }
 
+    protected void notifyDataSetChanged() {
+        viewPager.getAdapter().notifyDataSetChanged();
+    }
+
     private void setupActionBar() {
-        setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
         if (isNotNull(actionBar)) actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupViewPager() {
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(createAdapter());
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -13,7 +13,9 @@ public abstract class ListActivity extends BaseActivity {
     @BindView(R.id.layoutContent)
     RecyclerView layoutContent;
 
-    protected abstract RecyclerView.Adapter getAdapter();
+    private RecyclerView.Adapter listAdapter;
+
+    protected abstract RecyclerView.Adapter createAdapter();
 
     @Override
     protected int getLayoutResId() {
@@ -23,7 +25,12 @@ public abstract class ListActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listAdapter = createAdapter();
         layoutContent.setLayoutManager(new LinearLayoutManager(this));
-        layoutContent.setAdapter(getAdapter());
+        layoutContent.setAdapter(listAdapter);
+    }
+
+    protected void refreshData() {
+        listAdapter.notifyDataSetChanged();
     }
 }

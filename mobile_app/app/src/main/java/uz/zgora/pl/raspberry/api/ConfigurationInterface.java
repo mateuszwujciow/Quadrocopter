@@ -6,23 +6,34 @@ import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import uz.zgora.pl.raspberry.model.Configuration;
-import uz.zgora.pl.raspberry.model.ConfigurationDetails;
+import uz.zgora.pl.raspberry.model.SensorDetails;
+import uz.zgora.pl.raspberry.ui.configuration.manage.add.AddConfigurationRequestBody;
+import uz.zgora.pl.raspberry.ui.configuration.manage.edit.request.SensorDetailsRequestBody;
 
 interface ConfigurationInterface {
 
     @GET("configuration-list/all")
-    Observable<List<Configuration>> all();
+    Observable<List<Configuration>> getConfigurations();
 
-    @POST("configuration-list")
-    Observable<CommonResponse> add(@Body ConfigurationDetails configurationDetails);
+    @GET("configuration-list/sensors/{id}")
+    Observable<List<SensorDetails>> getSensors(@Path("id") int configurationId);
 
-    @PUT("configuration-list/{id}")
-    Observable<CommonResponse> update(@Path("id") long configurationId, @Body ConfigurationDetails configurationDetails);
+    @GET("configuration-list/sensors/current")
+    Observable<List<SensorDetails>> getCurrentSensors();
 
-    @DELETE("configuration-list/{id}")
-    Observable<CommonResponse> remove(@Path("id") long configurationId);
+    @POST("configuration-list/new")
+    Observable<Integer> add(@Body AddConfigurationRequestBody configurationName);
+
+    @PATCH("configuration-list/sensors/{id}/{sensorName}")
+    Observable<String> update(@Path("id") long configurationId, @Path("sensorName") String sensorName, @Body SensorDetailsRequestBody sensorDetails);
+
+    @DELETE("configuration-list/delete/{id}")
+    Observable<String> remove(@Path("id") long configurationId);
+
+    @POST("configuration-list/sensors/current/{id}")
+    Observable<String> uploadToQuadrocopter(@Path("id") long configurationId);
 }

@@ -1,24 +1,33 @@
 package uz.zgora.pl.raspberry.ui.configuration.list;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
-import uz.zgora.pl.raspberry.model.ConfigurationGroup;
+import java.util.ArrayList;
+import java.util.List;
+
+import uz.zgora.pl.raspberry.model.Configuration;
 import uz.zgora.pl.raspberry.ui.base.ListActivity;
+import uz.zgora.pl.raspberry.ui.configuration.detail.ConfigurationDetailsActivity;
 
 public class ConfigurationListActivity extends ListActivity {
-    private static final String KEY_CONFIGURATION_GROUP = "key-configuration-group";
+    private final List<Configuration> configurations = new ArrayList<>();
 
-    public static void start(final Context context, final ConfigurationGroup configurationGroup) {
-        final Intent intent = new Intent(context, ConfigurationListActivity.class);
-        intent.putExtra(KEY_CONFIGURATION_GROUP, configurationGroup);
-        context.startActivity(intent);
+    @Override
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        new ConfigurationListPresenter(this).fetchConfigurations();
     }
 
     @Override
-    protected RecyclerView.Adapter getAdapter() {
-        final ConfigurationGroup configurationGroup = (ConfigurationGroup) getIntent().getSerializableExtra(KEY_CONFIGURATION_GROUP);
-        return new ConfigurationListAdapter(configurationGroup, null);
+    protected RecyclerView.Adapter createAdapter() {
+        return new ConfigurationListAdapter(configurations,
+                it -> ConfigurationDetailsActivity.start(this, it.getId()));
+    }
+
+    public void bindConfigurations(final List<Configuration> configurations) {
+        this.configurations.addAll(configurations);
+        refreshData();
     }
 }

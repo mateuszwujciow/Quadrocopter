@@ -1,4 +1,4 @@
-package uz.zgora.pl.raspberry.ui.configuration.manage;
+package uz.zgora.pl.raspberry.ui.configuration.manage.edit;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,18 +9,16 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import uz.zgora.pl.raspberry.R;
-import uz.zgora.pl.raspberry.model.SingleConfiguration;
+import uz.zgora.pl.raspberry.model.Sensor;
+import uz.zgora.pl.raspberry.model.SensorDetails;
 import uz.zgora.pl.raspberry.ui.base.TabPage;
 import uz.zgora.pl.raspberry.util.UiUtils;
 
-import static uz.zgora.pl.raspberry.util.Objects.isNotNull;
 import static uz.zgora.pl.raspberry.util.Objects.isNull;
 import static uz.zgora.pl.raspberry.util.UiUtils.setText;
 
-public class ConfigurationPage extends TabPage<SingleConfiguration> {
+public class ConfigurationPage extends TabPage<SensorDetails> {
     public static final String KEY_SINGLE_CONFIGURATION = "key-single-configuration";
-
-    private static final String UNDEFINED_TITLE = "Undefined";
 
     @BindView(R.id.txtKp)
     EditText txtKp;
@@ -31,9 +29,7 @@ public class ConfigurationPage extends TabPage<SingleConfiguration> {
     @BindView(R.id.txtTf)
     EditText txtTf;
 
-    private SingleConfiguration configuration;
-
-    public static TabPage<SingleConfiguration> newInstance(final SingleConfiguration configuration) {
+    public static TabPage<SensorDetails> newInstance(final SensorDetails configuration) {
         final Bundle args = new Bundle();
         args.putSerializable(KEY_SINGLE_CONFIGURATION, configuration);
         final ConfigurationPage fragment = new ConfigurationPage();
@@ -43,19 +39,13 @@ public class ConfigurationPage extends TabPage<SingleConfiguration> {
 
     @Override
     public String getTitle() {
-        configuration = getConfiguration();
-        return isNull(configuration) ? UNDEFINED_TITLE : configuration.getType().name();
+        return getSensorDetails().getName();
     }
 
     @Override
-    public SingleConfiguration build() {
-        return new SingleConfiguration.Builder()
-                .kd(getFloat(txtKd))
-                .ki(getFloat(txtKi))
-                .kp(getFloat(txtKp))
-                .tf(getFloat(txtTf))
-                .type(getConfiguration().getType())
-                .build();
+    public SensorDetails build() {
+        final Sensor sensor = new Sensor(getFloat(txtKp), getFloat(txtKi), getFloat(txtKd), getFloat(txtTf));
+        return new SensorDetails(getSensorDetails().getId(), getSensorDetails().getName(), sensor);
     }
 
     @Override
@@ -69,20 +59,17 @@ public class ConfigurationPage extends TabPage<SingleConfiguration> {
         setupView();
     }
 
-    private SingleConfiguration getConfiguration() {
+    private SensorDetails getSensorDetails() {
         final Bundle args = getArguments();
-        if (isNull(args)) return SingleConfiguration.EMPTY(SingleConfiguration.Type.UNKNOWN);
-        final SingleConfiguration configuration = (SingleConfiguration) args.getSerializable(KEY_SINGLE_CONFIGURATION);
-        return isNull(configuration) ? SingleConfiguration.EMPTY(SingleConfiguration.Type.UNKNOWN) : configuration;
+        return (SensorDetails) args.getSerializable(KEY_SINGLE_CONFIGURATION);
     }
 
     private void setupView() {
-        if (isNotNull(configuration)) {
-            setText(txtKp, configuration.getKp());
-            setText(txtKi, configuration.getKi());
-            setText(txtKd, configuration.getKd());
-            setText(txtTf, configuration.getTf());
-        }
+        final Sensor sensor = getSensorDetails().getSensor();
+        setText(txtKd, sensor.getKd());
+        setText(txtKi, sensor.getKi());
+        setText(txtKp, sensor.getKp());
+        setText(txtTf, sensor.getTf());
     }
 
     private float getFloat(final TextView textView) {

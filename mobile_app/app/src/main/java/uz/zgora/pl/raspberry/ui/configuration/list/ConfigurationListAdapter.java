@@ -13,7 +13,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uz.zgora.pl.raspberry.R;
 import uz.zgora.pl.raspberry.model.Configuration;
-import uz.zgora.pl.raspberry.model.ConfigurationGroup;
 
 import static uz.zgora.pl.raspberry.util.DateFormatter.fullDate;
 import static uz.zgora.pl.raspberry.util.Objects.isNotNull;
@@ -23,8 +22,8 @@ class ConfigurationListAdapter extends RecyclerView.Adapter<ConfigurationListAda
     private final List<Configuration> configurations;
     private final OnClick onClick;
 
-    ConfigurationListAdapter(@NonNull final ConfigurationGroup configurationGroup, @Nullable final OnClick onItemClicked) {
-        this.configurations = configurationGroup.getConfigurations();
+    ConfigurationListAdapter(@NonNull final List<Configuration> configurations, @Nullable final OnClick onItemClicked) {
+        this.configurations = configurations;
         this.onClick = onItemClicked;
     }
 
@@ -59,7 +58,8 @@ class ConfigurationListAdapter extends RecyclerView.Adapter<ConfigurationListAda
         void bind(final Configuration configurations) {
             txtConfigurationName.setText(configurations.getName());
             txtLastModificationDate.setText(fullDate(configurations.getLastModificationDate()));
-            if (isNotNull(onClick)) itemView.setOnClickListener(v -> onClick.invoke(configurations));
+            if (isNotNull(onClick))
+                itemView.setOnClickListener(v -> onClick.invoke(configurations));
         }
     }
 

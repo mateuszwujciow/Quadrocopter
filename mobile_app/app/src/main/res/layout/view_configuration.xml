@@ -2,16 +2,16 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="30dp"
+    android:padding="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/l_kp">
+        android:hint="@string/l_kd">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/txtKp"
+            android:id="@+id/txtKd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal" />
@@ -34,10 +34,10 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/l_kd">
+        android:hint="@string/l_kp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/txtKd"
+            android:id="@+id/txtKp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal" />

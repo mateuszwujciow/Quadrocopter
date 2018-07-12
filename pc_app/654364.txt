@@ -1,0 +1,1 @@
+[{"configuration_id":"1","name":"Pitch","values":{"Kp":"43245234","Ki":"223545","Kd":"200245","Tf":"99345"}},{"configuration_id":"1","name":"Roll","values":{"Kp":"0","Ki":"0","Kd":"2","Tf":"0"}},{"configuration_id":"1","name":"Yaw","values":{"Kp":"0","Ki":"0","Kd":"0","Tf":"0"}},{"configuration_id":"1","name":"Thrust","values":{"Kp":"0","Ki":"0","Kd":"0","Tf":"200"}}]

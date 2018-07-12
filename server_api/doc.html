@@ -1,0 +1,48 @@
+<html>
+<body>
+<h>adres: http://212.109.146.180:16969</h>
+
+<table border="1" style="height: 291px; width: 806px;">
+<tbody>
+<tr>
+<td style="width: 91px;">&nbsp;metoda</td>
+<td style="width: 360px;">adres</td>
+<td style="width: 284px;">body (w jsonie!)</td>
+<td style="width: 70px;">opis</td>
+</tr>
+<tr>
+<td style="width: 91px;">&nbsp;GET</td>
+<td style="width: 360px;">&nbsp;/configuration-list/details/&lt;id list&gt;</td>
+<td style="width: 284px;">&nbsp;pusto</td>
+<td style="width: 70px;">&nbsp;pobiera dane o jednej liście</td>
+</tr>
+<tr>
+<td style="width: 91px;">&nbsp;POST</td>
+<td style="width: 360px;">/configuration-list/new&nbsp;</td>
+<td style="width: 284px;">&nbsp;{<br />&nbsp;&nbsp; &nbsp;"name": "&lt;nazwa&gt;"<br />}</td>
+<td style="width: 70px;">&nbsp;tworzy nową listę konfiguracyjną</td>
+</tr>
+<tr>
+<td style="width: 91px;">&nbsp;PATCH</td>
+<td style="width: 360px;">&nbsp;/configuration-list/sensors/&lt;id listy&gt;/&lt;nazwa sensora&gt;</td>
+<td style="width: 284px;">&nbsp;{<br />&nbsp;&nbsp; &nbsp;"values": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Kd": "351",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Ki": "56342",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Kp": "1231",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Tf": "11"<br />&nbsp;&nbsp; &nbsp;}<br />}</td>
+<td style="width: 70px;">aktualizuje sensor dla listy </td>
+</tr>
+<tr>
+<td style="width: 91px;">&nbsp;DELETE</td>
+<td style="width: 360px;">&nbsp;/configuration-list/delete/&lt;id listy&gt;</td>
+<td style="width: 284px;">&nbsp;pusto</td>
+<td style="width: 70px;">&nbsp;usuwa liste i jej sensory (nie zostawia sierot)</td>
+</tr>
+<tr>
+<td style="width: 91px;">&nbsp;GET</td>
+<td style="width: 360px;">&nbsp;/configuration-list/sensors/&lt;id listy&gt;</td>
+<td style="width: 284px;">&nbsp;pusto</td>
+<td style="width: 70px;">wyświetla wszystkie sensory dla podanej listy</td>
+</tr>
+</tbody>
+</table>
+<!-- DivTable.com -->
+<p>&nbsp;</p>
+</body>
+</html>
